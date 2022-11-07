@@ -1,19 +1,22 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
+import type { FC } from 'react'
 import { useEffect, useRef, useState } from 'react'
+
 import styles from './Nav.module.scss'
 
-function useComponentVisible(initialIsVisible) {
+function useComponentVisible(initialIsVisible: any) {
   const [isComponentVisible, setIsComponentVisible] = useState(initialIsVisible)
-  const ref = useRef(null)
+  const ref = useRef<HTMLButtonElement>(null)
 
-  const handleHideDropdown = (event) => {
+  const handleHideDropdown = (event: any) => {
     if (event.key === 'Escape') {
       setIsComponentVisible(false)
     }
   }
 
-  const handleClickOutside = (event) => {
+  const handleClickOutside = (event: any) => {
     if (ref.current && !ref.current.contains(event.target)) {
       setIsComponentVisible(false)
     }
@@ -31,7 +34,15 @@ function useComponentVisible(initialIsVisible) {
   return { ref, isComponentVisible, setIsComponentVisible }
 }
 
-const Nav = () => {
+const Nav: FC = () => {
+  const { pathname } = useRouter()
+  const isActive = (r: any) => {
+    if (r === pathname) {
+      return `${styles.active}`
+    }
+    return `${styles.noactive}`
+  }
+
   const { ref, isComponentVisible, setIsComponentVisible } =
     useComponentVisible(false)
 
@@ -81,7 +92,7 @@ const Nav = () => {
             </button>
           </div>
           <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
-            <div className="flex-shrink-0 flex items-center">
+            <div className="shrink-0 flex items-center">
               <Image
                 className="block h-8 w-auto"
                 src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
@@ -92,23 +103,12 @@ const Nav = () => {
             </div>
             <div className="hidden sm:block sm:ml-6">
               <div className="flex space-x-4">
-                <Link href={'/'} className={styles.noactive}>
-
+                <Link href={'/'} className={isActive('/')}>
                   Главная
                 </Link>
-                <Link
-                  href={'/bementor'}
-                  className={styles.noactive}
-                >
-                  Стать ментором
-
+                <Link href={'/line'} className={isActive('/line')}>
+                  Графики{' '}
                 </Link>
-                <Link
-                  href={'/about'}
-                  className={styles.noactive}
-                >
-
-                  О проекте                </Link>
               </div>
             </div>
           </div>
@@ -124,7 +124,7 @@ const Nav = () => {
                   aria-expanded="true"
                   aria-haspopup="true"
                   onClick={() => setIsComponentVisible(true)}
-                // onClick={select}
+                  // onClick={select}
                 >
                   <span className="sr-only">Open user menu</span>
                   <span className="inline-block h-12 w-12 rounded-full overflow-hidden bg-gray-100">
@@ -140,27 +140,28 @@ const Nav = () => {
               </div>
 
               <div
-                className={`${isComponentVisible ? '' : 'hidden'
-                  } origin-top-right absolute right-0 mt-2 w-48 z-10 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none`}
+                className={`${
+                  isComponentVisible ? '' : 'hidden'
+                } origin-top-right absolute right-0 mt-2 w-48 z-10 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-[5] focus:outline-none`}
                 role="menu"
                 aria-orientation="vertical"
                 aria-labelledby="user-menu-button"
-                tabIndex="1"
+                tabIndex={1}
               >
-                <Link href={'/profile'} className="block px-4 py-2 text-sm text-gray-700">
-
+                <Link
+                  href={'/profile'}
+                  className="block px-4 py-2 text-sm text-gray-700"
+                >
                   Профиль
-
                 </Link>
-                <Link href={'/mentor/add'} className="block px-4 py-2 text-sm text-gray-700">
-
+                <Link
+                  href={'/mentor/add'}
+                  className="block px-4 py-2 text-sm text-gray-700"
+                >
                   Стать ментором
-
                 </Link>
                 <Link href={''}>
-                  <button
-                    className="block px-4 py-2 text-sm text-gray-700"
-                  >
+                  <button className="block px-4 py-2 text-sm text-gray-700">
                     Выйти
                   </button>
                 </Link>
@@ -175,13 +176,22 @@ const Nav = () => {
         id="mobile-menu"
       >
         <div className="px-2 pt-2 pb-3 space-y-1">
-          <Link href={'/'} className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md block text-base font-medium">
+          <Link
+            href={'/'}
+            className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md block text-base font-medium"
+          >
             Главная
           </Link>
-          <Link href={'/'} className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md block text-base font-medium">
+          <Link
+            href={'/'}
+            className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md block text-base font-medium"
+          >
             Менторы
           </Link>
-          <Link href={'/about'} className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md block text-base font-medium">
+          <Link
+            href={'/about'}
+            className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md block text-base font-medium"
+          >
             О проекте
           </Link>
         </div>

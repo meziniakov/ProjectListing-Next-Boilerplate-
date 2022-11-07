@@ -1,14 +1,19 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-const ItemCard = ({ item }) => {
+import type { IProject } from '@/types/project.interface'
+
+type Props = {
+  project: IProject
+}
+const ItemCard = ({ project }: Props) => {
   return (
     <div className="w-full sm:w-1/2 md:w-1/2 xl:w-1/3 p-6">
-      <div className="c-card block bg-white shadow-md hover:shadow-xl rounded-lg overflow-hidden">
+      <div className="block bg-white shadow-md hover:shadow-xl rounded-lg overflow-hidden">
         <div>
           <Link
             href={{
-              pathname: `/item/${item["ИНН"]}`,
+              pathname: `/project/${project['ИНН']}`,
               // query: { id:  },
             }}
           >
@@ -18,7 +23,7 @@ const ItemCard = ({ item }) => {
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-6 w-6"
-                    fill='#ff385c'
+                    fill="#ff385c"
                     viewBox="0 0 32 32"
                     stroke="#fff"
                     strokeWidth={2}
@@ -27,9 +32,13 @@ const ItemCard = ({ item }) => {
                   </svg>
                 </span>
               </button>
-<img alt="" aria-hidden="true" src="data:image/svg+xml,%3csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20version=%271.1%27%20width=%27500%27%20height=%27300%27/%3e"/>
+              <img
+                alt=""
+                aria-hidden="true"
+                src="data:image/svg+xml,%3csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20version=%271.1%27%20width=%27500%27%20height=%27300%27/%3e"
+              />
               <Image
-                src={item.avatar ? item.avatar : '/vercel.svg'}
+                src={'/vercel.svg'}
                 className="absolute inset-0 w-full object-cover"
                 priority={true}
                 width={500}
@@ -41,16 +50,16 @@ const ItemCard = ({ item }) => {
         </div>
         <div className="p-4">
           <div className="mb-3">
-            <h2 className="mt-2 mb-2 text-2xl font-bold">
-              {/* {item.firstname} {item.lastname} */}
-              {item["Исполнитель"]}
+            <h2 className="my-2 text-2xl font-bold">
+              {/* {project.firstname} {project.lastname} */}
+              {project['Наименование']}
             </h2>
             <span>
-              {/* {item.job[0]?.substring(
-                item.job[0].lastIndexOf('@') + 1,
-                item.job[0].length
+              {/* {project.job[0]?.substring(
+                project.job[0].lastIndexOf('@') + 1,
+                project.job[0].length
               )} */}
-              {item["Название проекта"]}
+              {project['Регион МИП']}
             </span>
           </div>
           <div className="inline-flex w-full">
@@ -71,7 +80,7 @@ const ItemCard = ({ item }) => {
               </svg>
             </span>
             <span className="text-sm">
-              {/* {item.job[0]?.substring(0, item.job[0].lastIndexOf('@'))} */}
+              {/* {project.job[0]?.substring(0, project.job[0].lastIndexOf('@'))} */}
             </span>
           </div>
           <div className="inline-flex w-full">
@@ -93,13 +102,10 @@ const ItemCard = ({ item }) => {
                 />
               </svg>
             </span>
-            {item.skills
-              ? item.skills.map((skill) => skill).join(', ')
-              : null}
           </div>
           {/* <div className="text-red-700">
             <Link href={'/'}>
-              <a onClick={(e) => onDelete(e, item._id)}>Delete</a>
+              <a onClick={(e) => onDelete(e, project._id)}>Delete</a>
             </Link>
           </div> */}
         </div>

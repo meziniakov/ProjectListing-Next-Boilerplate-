@@ -2,9 +2,9 @@
 module.exports = {
   content: ['./src/**/*.{js,ts,jsx,tsx}'],
   container: {
-      center: true,
-      padding: '2rem',
-    },
+    center: true,
+    padding: '2rem',
+  },
   theme: {
     fontSize: {
       xs: '0.75rem',
@@ -46,4 +46,4 @@ module.exports = {
     // },
   },
   plugins: [],
-};
+}

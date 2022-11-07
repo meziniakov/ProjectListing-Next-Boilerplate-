@@ -4,6 +4,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "start": "next start",
     "build-stats": "cross-env ANALYZE=true npm run build",
     "export": "next export",
     "build-prod": "run-s clean build export",
@@ -19,12 +20,15 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@faker-js/faker": "^7.6.0",
     "chart.js": "^3.9.1",
+    "mongoose": "^6.7.0",
     "next": "^13.0.0",
     "next-seo": "^5.8.0",
     "react": "^18.2.0",
     "react-chartjs-2": "^4.3.1",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.1.2",
@@ -37,6 +41,7 @@
     "@types/jest": "^29.2.0",
     "@types/node": "^18.11.5",
     "@types/react": "^18.0.23",
+    "@types/xlsx": "^0.0.36",
     "@typescript-eslint/eslint-plugin": "^5.41.0",
     "@typescript-eslint/parser": "^5.41.0",
     "autoprefixer": "^10.4.12",
